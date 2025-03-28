@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title mb-0">Historial de sesiones</h4>
+  </div>
+  <div class="table-responsive add-project custom-scrollbar">
+    <table class="table card-table table-vcenter text-nowrap">
+      <thead>
+        <tr>
+          <th>Fecha de registro</th>
+          <th>Dirección IP</th>
+          <th>Detalle</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(item of listSession(); track item){
+        <tr>
+          <td>{{item.createdAt}}</td>
+          <td>{{item.ipAddress}} </td>
+          <td>{{item.information}}</td>
+          <td><span [ngClass]="{'text-bg-success':item.active, 'text-bg-danger':!item.active}"
+              class="badge rounded ">{{item.active
+              ?'Activo':'Inactivo'}}</span></td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

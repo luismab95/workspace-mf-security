@@ -1,0 +1,90 @@
+<div class="card">
+  <form class="needs-validation" novalidate [formGroup]="userForm">
+    <div class="card-header">
+      <h4 class="card-title mb-0">Mi Perfil</h4>
+    </div>
+    @if(user() !== null ){
+    @let userData = user();
+    <div class="card-body">
+      <div class="row mb-2">
+        <div class="profile-title">
+          <div class="media">
+            <div style="height: 70px;"
+              class="bg-primary rounded-circle profile-icon img-70 d-flex justify-content-center align-items-center">
+              <span class="text-white text-center text-uppercase fw-semibold fs-4">
+                {{(userData?.firstname?.charAt(0) ?? '') + (userData?.lastname?.charAt(0) ?? '')}}
+              </span>
+            </div>
+            <div class="media-body">
+              <h5 class="mb-1">
+                {{ userData?.firstname }}
+              </h5>
+              <p>{{ userData?.lastname }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label pt-0">Su nombre</label>
+        <div class="row g-2">
+          <div class="col-6">
+            <input class="form-control" [formControlName]="'firstname'" type="text" placeholder="Nombres">
+          </div>
+          <div class="col-6">
+            <input class="form-control" [formControlName]="'lastname'" type="text" placeholder="Apellidos">
+          </div>
+        </div>
+        @if(userForm.get('firstname')!.hasError('required') && userForm.get('firstname')!.touched){
+        <div class="invalid-feedback">Por favor, introduzca sus nombres.</div>
+        }
+        @if(userForm.get('lastname')!.hasError('required') && userForm.get('lastname')!.touched){
+        <div class="invalid-feedback">Por favor, introduzca sus apellidos.</div>
+        }
+        @if(userForm.get('firstname')!.hasError('maxLength') && userForm.get('firstname')!.touched){
+        <div class="invalid-feedback">Nombres solo permite un máximo de 100 caracteres.</div>
+        }
+        @if(userForm.get('lastname')!.hasError('maxLength') && userForm.get('lastname')!.touched){
+        <div class="invalid-feedback">Apellidos solo permite un máximo de 100 caracteres.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo Electrónico</label>
+        <input id="email" [formControlName]="'email'" class="form-control" type="email" placeholder="email@example.com">
+        @if(userForm.get('email')!.hasError('email') && userForm.get('email')!.touched){
+        <div class="invalid-feedback">Por favor, introduzca una dirección de correo electrónico válida.</div>
+        }
+        @if(userForm.get('email')!.hasError('required') && userForm.get('email')!.touched){
+        <div class="invalid-feedback">Por favor, introduzca una dirección de correo electrónico.</div>
+        }
+      </div>
+
+    </div>
+    <div class="card-footer text-end">
+      <button [disabled]="loading || userForm.invalid" type="button" (click)="onUpdate()"
+        class="btn btn-primary btn-block">
+        @if(loading){
+        <div class="spinner-border spinner-border-sm text-light me-1" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        }
+        Guardar
+      </button>
+    </div>
+    }@else {
+    <div style="height: 400px;" class="card-body">
+
+
+      <div class="alert alert-light-danger d-flex align-items-center" role="alert">
+
+        <p class="txt-danger">
+          No se encontró datos del usuario.
+        </p>
+      </div>
+    </div>
+    <div class="card-footer p-4">
+    </div>
+    }
+
+  </form>
+</div>
