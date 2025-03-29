@@ -14,6 +14,9 @@ import { Subject, takeUntil } from 'rxjs';
 import { matchPasswordValidator } from 'src/app/shared/utils/validators.utils';
 import { UpdatePasswordI } from '../../interfaces/user.interface';
 import { OtpComponent } from 'src/app/shared/components/otp/otp.component';
+import { decodeToken } from 'src/app/shared/utils/jwt.utils';
+import Pubsub from 'pubsub-js';
+
 @Component({
   selector: 'mf-security-password-form',
   templateUrl: './password-form.component.html',
@@ -130,13 +133,16 @@ export class PasswordFormComponent implements OnInit, OnDestroy {
       password: this.resetPasswordForm.value.password,
     } as UpdatePasswordI;
 
+    const tokenPayload = decodeToken();
+
     this._userService
-      .updatePassword(7, payload)
+      .updatePassword(tokenPayload.id, payload)
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe({
-        complete: () => {
+        next: (response) => {
           this.loading = false;
           this.resetPassword = false;
+          Pubsub.publish('success', response.data);
         },
         error: (_error) => {
           this.loading = false;

@@ -6,7 +6,7 @@ const {
 const moduleFederationConfig = withModuleFederationPlugin({
   name: "mf-security",
   exposes: {
-    "./User": "./src/app/modules/user/user.routes.ts",
+    "./UserModule": "./src/app/modules/user/user.module.ts",
   },
   shared: {
     ...shareAll({

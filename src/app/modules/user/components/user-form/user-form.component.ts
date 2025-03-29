@@ -8,6 +8,8 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
+import { decodeToken } from 'src/app/shared/utils/jwt.utils';
+import Pubsub from 'pubsub-js';
 
 @Component({
   selector: 'mf-security-user-form',
@@ -33,8 +35,9 @@ export class UserFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    const tokenPayload = decodeToken();
     this._userService
-      .getUserById(7)
+      .getUserById(tokenPayload.id)
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe({
         next: (response) => {
@@ -62,6 +65,7 @@ export class UserFormComponent implements OnInit, OnDestroy {
         next: (response) => {
           this.loading = false;
           this.user.set(response.data);
+          Pubsub.publish('success', 'Usuario actualizado correctamente.');
         },
         error: (_err) => {
           this.loading = false;

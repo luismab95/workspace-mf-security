@@ -6,7 +6,8 @@ export const routes: Routes = [
     children: [
       {
         path: 'user',
-        loadChildren: () => import('src/app/modules/user/user.routes'),
+        loadChildren: () =>
+          import('src/app/modules/user/user.module').then((m) => m.UserModule),
       },
     ],
   },

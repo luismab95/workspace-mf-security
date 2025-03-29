@@ -1,7 +1,8 @@
-import { Routes } from '@angular/router';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-export default [
+const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
@@ -10,4 +11,10 @@ export default [
     path: '**',
     redirectTo: 'profile',
   },
-] as Routes;
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class UserRoutingModule {}
