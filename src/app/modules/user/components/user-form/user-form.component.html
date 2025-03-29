@@ -16,7 +16,7 @@
               </span>
             </div>
             <div class="media-body">
-              <h5 class="mb-1">
+              <h5>
                 {{ userData?.firstname }}
               </h5>
               <p>{{ userData?.lastname }}</p>
@@ -73,10 +73,7 @@
     </div>
     }@else {
     <div style="height: 400px;" class="card-body">
-
-
       <div class="alert alert-light-danger d-flex align-items-center" role="alert">
-
         <p class="txt-danger">
           No se encontró datos del usuario.
         </p>
@@ -85,6 +82,5 @@
     <div class="card-footer p-4">
     </div>
     }
-
   </form>
 </div>

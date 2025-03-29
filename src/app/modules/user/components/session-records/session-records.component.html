@@ -2,7 +2,7 @@
   <div class="card-header">
     <h4 class="card-title mb-0">Historial de sesiones</h4>
   </div>
-  <div class="table-responsive add-project custom-scrollbar">
+  <div class="table-responsive">
     <table class="table card-table table-vcenter text-nowrap">
       <thead>
         <tr>
@@ -18,8 +18,8 @@
           <td>{{item.createdAt}}</td>
           <td>{{item.ipAddress}} </td>
           <td>{{item.information}}</td>
-          <td><span [ngClass]="{'text-bg-success':item.active, 'text-bg-danger':!item.active}"
-              class="badge rounded ">{{item.active
+          <td><span [ngClass]="{'pill-badge-primary':item.active, 'pill-badge-secondary':!item.active}"
+              class="badge rounded w-100 ">{{item.active
               ?'Activo':'Inactivo'}}</span></td>
         </tr>
         }
